@@ -22,22 +22,29 @@ class Snake(Actor):
 
     def move_next(self):
         # move all segments
-        for segment in self._segments:
-            segment.move_next()
-        # update velocities
         for i in range(len(self._segments) - 1, 0, -1):
-            trailing = self._segments[i]
-            previous = self._segments[i - 1]
-            velocity = previous.get_velocity()
-            trailing.set_velocity(velocity)
- 
+            if i == 0:
+                position = self._segments[i].get_head()
+                self._segments[i].move_next()
+                anchor = Actor()
+                anchor.set_position(position)
+                anchor.set_velocity(0)
+                anchor.set_text("#")
+                anchor.set_color(constants.GREEN)
+                self._segments.append(anchor)
+        # update velocities
+            else:
+                trailing = self._segments[i]
+                previous = self._segments[i - 1]
+                velocity = previous.get_velocity()
+                trailing.set_velocity(velocity)
     def get_head(self):
         return self._segments[0]
 
     def grow_tail(self, number_of_segments):
         for i in range(number_of_segments):
             tail = self._segments[-1]
-            velocity = tail.get_velocity()
+            velocity = 0
             offset = velocity.reverse()
             position = tail.get_position().add(offset)
             
@@ -55,9 +62,9 @@ class Snake(Actor):
         x = int(constants.MAX_X / 2)
         y = int(constants.MAX_Y / 2)
 
-        for i in range(constants.SNAKE_LENGTH):
+        for i in range(1):
             position = Point(x - i * constants.CELL_SIZE, y)
-            velocity = Point(1 * constants.CELL_SIZE, 0)
+            velocity = Point(1 * constants.CELL_SIZE, 0) if i == 0 else 0
             text = "8" if i == 0 else "#"
             color = constants.YELLOW if i == 0 else constants.GREEN
             
@@ -67,3 +74,4 @@ class Snake(Actor):
             segment.set_text(text)
             segment.set_color(color)
             self._segments.append(segment)
+    
