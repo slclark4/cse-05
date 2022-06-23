@@ -1,4 +1,5 @@
 from game.scripting.action import Action
+from game.services.keyboard_service import KeyboardService
 
 
 class MoveActorsAction(Action):
