@@ -21,6 +21,7 @@ class ControlActorsAction(Action):
         """
         self._keyboard_service = keyboard_service
         self._direction = Point(constants.CELL_SIZE, 0)
+        self._direction2 = Point(0, constants.CELL_SIZE)
 
     def execute(self, cast, script):
         """Executes the control actors action.
@@ -45,5 +46,24 @@ class ControlActorsAction(Action):
         if self._keyboard_service.is_key_down('s'):
             self._direction = Point(0, constants.CELL_SIZE)
         
-        snake = cast.get_first_actor("snakes")
+        snake = cast.get_first_actor("player_1")
         snake.turn_head(self._direction)
+
+        # cycle left 
+        if self._keyboard_service.is_key_down('j'):
+            self._direction2 = Point(-constants.CELL_SIZE, 0)
+        
+        # cycle right
+        if self._keyboard_service.is_key_down('l'):
+            self._direction2 = Point(constants.CELL_SIZE, 0)
+        
+        # cycle up
+        if self._keyboard_service.is_key_down('i'):
+            self._direction2 = Point(0, -constants.CELL_SIZE)
+        
+        # cycle down
+        if self._keyboard_service.is_key_down('k'):
+            self._direction2 = Point(0, constants.CELL_SIZE)
+        
+        cycle = cast.get_first_actor("player_2")
+        cycle.turn_head(self._direction2)

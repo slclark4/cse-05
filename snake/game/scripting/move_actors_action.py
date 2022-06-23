@@ -41,3 +41,18 @@ class MoveActorsAction(Action):
                     # down
                 if self._keyboard_service.is_key_down('s'):
                     self.game_started = True
+
+                if self._keyboard_service.is_key_down('i'):
+                    self.game_started = True
+
+                    # right
+                if self._keyboard_service.is_key_down('l'):
+                    self.game_started = True
+
+                    # up
+                if self._keyboard_service.is_key_down('k'):
+                    self.game_started = True
+
+                    # down
+                if self._keyboard_service.is_key_down('j'):
+                    self.game_started = True
