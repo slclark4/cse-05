@@ -20,8 +20,8 @@ def main():
     
     # create the cast
     cast = Cast()
-    cast.add_actor("player_1", Cycle(100, 300, constants.GREEN))
-    cast.add_actor("player_2", Cycle(770, 300, constants.RED))
+    cast.add_actor("player_1", Cycle(100, 300, constants.CYAN))
+    cast.add_actor("player_2", Cycle(770, 300, constants.PURPLE))
     cast.add_actor("player_1_scores", Score())
     cast.add_actor("player_2_scores", Score())
    
