@@ -1,6 +1,10 @@
 import constants
 from game.casting.actor import Actor
+from game.scripting.action import Action
 from game.shared.point import Point
+from game.scripting.move_actors_action import MoveActorsAction
+
+
 
 
 class Cycle(Actor):
@@ -16,14 +20,23 @@ class Cycle(Actor):
         super().__init__()
         self._segments = []
         self._prepare_body(x, y, color)
+        self._color = color
+
 
     def get_segments(self):
         return self._segments
+    
+    def execute(self, cast, script):
+            cast = MoveActorsAction()
 
     def move_next(self):
-        # move all segments
+    # move all segments
+        
         for segment in self._segments:
             segment.move_next()
+        self.grow_tail(2)
+
+
         # update velocities
         for i in range(len(self._segments) - 1, 0, -1):
             trailing = self._segments[i]
@@ -31,11 +44,13 @@ class Cycle(Actor):
             velocity = previous.get_velocity()
             trailing.set_velocity(velocity)
 
+
+
     def get_head(self):
         return self._segments[0]
 
-    def grow_tail(self, number_of_segments, color):
-        for i in range(number_of_segments):
+    def grow_tail(self, number_of_segments ):
+        
             tail = self._segments[-1]
             velocity = tail.get_velocity()
             offset = velocity.reverse()
@@ -45,8 +60,7 @@ class Cycle(Actor):
             segment.set_position(position)
             segment.set_velocity(velocity)
             segment.set_text("#")
-            segment.set_color(constants.GREEN)
-            segment.set_color(color)
+            segment.set_color(self._color)
             self._segments.append(segment)
 
     def turn_head(self, velocity):
