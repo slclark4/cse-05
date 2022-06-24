@@ -38,6 +38,7 @@ class Snake(Actor):
                 previous = self._segments[i - 1]
                 velocity = previous.get_velocity()
                 trailing.set_velocity(velocity)
+                
     def get_head(self):
         return self._segments[0]
 
