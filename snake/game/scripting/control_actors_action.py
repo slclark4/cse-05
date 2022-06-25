@@ -2,7 +2,6 @@ import constants
 from game.scripting.action import Action
 from game.shared.point import Point
 
-
 class ControlActorsAction(Action):
     """
     An input action that controls the snake.
@@ -30,40 +29,51 @@ class ControlActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
+        score1 = cast.get_first_actor("player_1_scores")
+        score2 = cast.get_first_actor("player_2_scores")
+
         # left
         if self._keyboard_service.is_key_down('a'):
             self._direction = Point(-constants.CELL_SIZE, 0)
+            score1.add_points(100, "player_1")
         
         # right
         if self._keyboard_service.is_key_down('d'):
             self._direction = Point(constants.CELL_SIZE, 0)
-        
+            score1.add_points(100, "player_1")
+
         # up
         if self._keyboard_service.is_key_down('w'):
             self._direction = Point(0, -constants.CELL_SIZE)
-        
+            score1.add_points(100, "player_1")
+
         # down
         if self._keyboard_service.is_key_down('s'):
             self._direction = Point(0, constants.CELL_SIZE)
-        
+            score1.add_points(100, "player_1")
+
         snake = cast.get_first_actor("player_1")
         snake.turn_head(self._direction)
 
         # cycle left 
         if self._keyboard_service.is_key_down('j'):
             self._direction2 = Point(-constants.CELL_SIZE, 0)
-        
+            score2.add_points(100, "player_2")
+
         # cycle right
         if self._keyboard_service.is_key_down('l'):
             self._direction2 = Point(constants.CELL_SIZE, 0)
-        
+            score2.add_points(100, "player_2")
+
         # cycle up
         if self._keyboard_service.is_key_down('i'):
             self._direction2 = Point(0, -constants.CELL_SIZE)
-        
+            score2.add_points(100, "player_2")
+
         # cycle down
         if self._keyboard_service.is_key_down('k'):
             self._direction2 = Point(0, constants.CELL_SIZE)
-        
+            score2.add_points(100, "player_2")
+
         cycle = cast.get_first_actor("player_2")
         cycle.turn_head(self._direction2)
