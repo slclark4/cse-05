@@ -1,5 +1,6 @@
 from game.scripting.action import Action
-
+from game.shared.point import Point 
+import constants 
 
 class DrawActorsAction(Action):
     """
@@ -27,9 +28,15 @@ class DrawActorsAction(Action):
             script (Script): The script of Actions in the game.
         """
         score1 = cast.get_first_actor("player_1_scores")
-        score2 = cast.get_first_actor("player_2_scores")
+        score1.set_text(f"Player One: {score1._points}") 
+
+        score2 = cast.get_first_actor("player_2_scores") 
+        score2.set_text(f"Player Two: {score2._points}") # Set text "Player Two" on screen.
+        score2.set_position(Point((constants.MAX_X - 200), 0)) # Set position for Player Two.
+
         snake = cast.get_first_actor("player_1")
         segments = snake.get_segments()
+        
         snake2 = cast.get_first_actor("player_2")
         segments2 = snake2.get_segments()
         messages = cast.get_actors("messages")
