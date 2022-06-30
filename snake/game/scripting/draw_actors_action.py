@@ -38,6 +38,7 @@ class DrawActorsAction(Action):
         segments = snake.get_segments()
         
         snake2 = cast.get_first_actor("player_2")
+        score2 = cast.get_first_actor("player_2_scores")
         segments2 = snake2.get_segments()
         messages = cast.get_actors("messages")
 
